@@ -23,28 +23,43 @@ public class OrderController
   public Customer placeOrder(@RequestBody Customer customer)
   
 	{ 
-		  Product product = new Product();
-		  
-		  product.setPrice(201); 
-		  product.setProductName("Laptop"); 
-		  product.setQty(200);
-		  product.setPid(203);
-		  product.setPrice(48000);
-		  Product product1 = new Product();
-		  product1.setPrice(201); 
-		  product1.setProductName("Mobile"); 
-		  product1.setQty(100);
-		  product1.setPid(204);
-		  product1.setPrice(19000);
-		  customer.setEmailId("Aarya@gmail.com");
-		  customer.setGender("Male"); 
-		  customer.setName("Arya");
-		  customer.setProduct(Arrays.asList(product,product1));
-		 
+		/*
+		 * Product product = new Product();
+		 * 
+		 * product.setPrice(201); product.setProductName("Laptop"); product.setQty(200);
+		 * product.setPid(203); product.setPrice(48000); Product product1 = new
+		 * Product(); product1.setPrice(201); product1.setProductName("Mobile");
+		 * product1.setQty(100); product1.setPid(204); product1.setPrice(19000);
+		 * customer.setEmailId("Aarya@gmail.com"); customer.setGender("Male");
+		 * customer.setName("Arya");
+		 * customer.setProduct(Arrays.asList(product,product1));
+		 */
 		
 	return customerRepo.save(customer);
 	  
   }
+	
+	@SuppressWarnings("null")
+	@GetMapping("/GetFiedsOnCondtion/{emailId}") 
+	  public List<OrderResponse> feidsInfonCondtion(@PathVariable("emailId") String emailId) 
+	     { 
+		List<OrderResponse> orderResponse = customerRepo.getSomefiledsOnCondition(emailId);
+		    if(orderResponse==null)
+		    {
+		    	orderResponse.get(0).setEmailId("Arya@gmail.com");
+		       
+		    }
+		    else
+		    	System.out.println("No Columns Found");
+		    return orderResponse;
+	  
+	         }
+	@GetMapping("/GetFiedsOnCondtion/{emailId}/{name}") 
+	  public List<OrderResponse> feidsInfonCondtions(@PathVariable("emailId") String emailId,@PathVariable("name") String name) 
+	     { 
+		List<OrderResponse> orderResponse = customerRepo.getSomefiledsOnCondition(emailId,name);
+		return orderResponse;
+	     }
 	
 	@GetMapping("/GetAllOrders")
 	  public List<Customer> findallOrdrs()
@@ -53,10 +68,12 @@ public class OrderController
 		  
 	  }
 		
-		/*
-		 * @GetMapping("/GetSomeFieds") public List<OrderResponse> feidsInfo() { return
-		 * customerRepo.getSomefileds();
-		 * 
-		 * }
-		 */
+		
+		  @GetMapping("/GetSomeFieds") 
+		  public List<OrderResponse> feidsInfo() { 
+			  return customerRepo.getSomefileds();
+		  
+		  }
+		  
+		  
 }

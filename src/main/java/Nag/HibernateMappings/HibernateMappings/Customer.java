@@ -19,7 +19,7 @@ public class Customer
   private String gender;
   
   @OneToMany(targetEntity = Product.class,cascade = CascadeType.ALL)
-  @JoinColumn(name = "cp_fk",referencedColumnName = "id")
+  @JoinColumn(name = "id",referencedColumnName = "id")
   private List<Product> products;
       
   
