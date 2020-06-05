@@ -3,7 +3,10 @@ package Nag.HibernateMappings.HibernateMappings;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,9 @@ public class OrderController
 	@Autowired
   private ProductRepo productRepo;
 
+	
+	@Autowired
+	private TestRepo testRepo;
 
 	@PostMapping("/placeOrder")
   public Customer placeOrder(@RequestBody Customer customer)
@@ -39,7 +45,7 @@ public class OrderController
 	  
   }
 	
-	@SuppressWarnings("null")
+	
 	@GetMapping("/GetFiedsOnCondtion/{emailId}") 
 	  public List<OrderResponse> feidsInfonCondtion(@PathVariable("emailId") String emailId) 
 	     { 
@@ -67,13 +73,51 @@ public class OrderController
 		return customerRepo.findAll();
 		  
 	  }
+
+	
+	  @GetMapping("/GetSomeFieds") 
+	  public List<OrderResponse> feidsInfo() { 
+		  return customerRepo.getSomefileds();
+	  
+	  }		
+		  
+		@DeleteMapping("/deleteId/{id}")
+		public String deleteId(@PathVariable("id") Integer id)
+		{
+			customerRepo.deleteRecord(id);
+			return "Deleted";
+			
+		}
 		
 		
-		  @GetMapping("/GetSomeFieds") 
-		  public List<OrderResponse> feidsInfo() { 
-			  return customerRepo.getSomefileds();
-		  
-		  }
-		  
-		  
+		@GetMapping("/getTest")
+		public List<Test> getTestdata()
+		{
+			
+		return testRepo.findAll();
+			
+		}
+		
+		@PostMapping("/savingTest")
+		public String savingTestdata(@RequestBody List<Test> test)
+		{
+			
+		 testRepo.saveAll(test);
+		 return "Test saved";
+			
+		}
+		@GetMapping("/deleteTest/{id}")
+		public List<Test> deletingTestdata(@PathVariable("id") int id)
+		{
+			testRepo.deleteRecord(id);
+			
+		return testRepo.findAll();
+			
+		}
 }
+
+
+
+
+
+
