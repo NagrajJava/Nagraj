@@ -1,5 +1,7 @@
 package Nag.HibernateMappings.HibernateMappings;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,10 @@ public class TestController
 	 @Autowired
 	    TestService testService;
 	 
-	    @GetMapping(value = "/Users",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
-	    )
+	    //produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
+	 @GetMapping(value = "/Users")
 	    public List<TestRest> getUsers(@RequestParam(value = "page", defaultValue = "0") int page,
-	            @RequestParam(value = "limit", defaultValue = "4") int limit) 
+	            @RequestParam(value = "limit", defaultValue = "30") int limit) throws FileNotFoundException, IOException 
 	    {
 	    	 List<TestRest> returnValue = new ArrayList<TestRest>();
 	    	  List<TestDto> users = testService.getUsers(page, limit);
@@ -35,4 +37,11 @@ public class TestController
 	        
 	        return returnValue;
 	    }
+	 
+	 @GetMapping("getExcel")
+	 public String covertingController() throws IOException
+	 {
+		 testService.convertingToExcelData();
+		 return "Excel Genereted Check";
+	 }
 }
