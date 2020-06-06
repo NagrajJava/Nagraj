@@ -1,22 +1,24 @@
+package Nag.HibernateMappings.HibernateMappings.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-package Nag.HibernateMappings.HibernateMappings;
-
-public class TestDto {
-
+@Entity
+public class Test {
+   
+	@Id
 	private int id;
 	private String name;
 	private String mobilenumber;
 	private String Addres;
-	
-	public TestDto(int id, String name, String mobilenumber, String addres) {
+	public Test(int id, String name, String mobilenumber, String addres) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.mobilenumber = mobilenumber;
 		Addres = addres;
 	}
-	public TestDto() {
+	public Test() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,7 +48,7 @@ public class TestDto {
 	}
 	@Override
 	public String toString() {
-		return "TestDto [id=" + id + ", name=" + name + ", mobilenumber=" + mobilenumber + ", Addres=" + Addres + "]";
+		return + id + name +  mobilenumber + Addres;
 	}
 	
 	
